@@ -5,15 +5,19 @@ import {Icon} from "react-native-elements";
 import { ButtonComponent } from "./ButtonComponent";
 import {RunsContainer} from "../../Provider.component";
 import { forSlideRight } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators";
+import { RunResource } from "../resources/Run.resource";
 
 
 export interface UpdatedInfoCardComponentProps {
     title: string
     icon: string
-    btnDisabled: boolean
-    btnTitle: string
-    btnOnPress:() => void
+    btnDisabled?: boolean
+    btnTitle?: string
+    btnOnPress?:() => void
     btnTitleStyle?: StyleProp<TextStyle>
+    setIsNewOrUpdated: (isNewOrUpdated: boolean) => void
+    run: RunResource
+    style?: StyleProp<TextStyle>
 }
 
 export function CardContainerComponent(props: PropsWithChildren<any>) {
@@ -24,9 +28,9 @@ export function CardContainerComponent(props: PropsWithChildren<any>) {
     )
 }
 
-export function UpdatedInfoCardComponent(props: PropsWithChildren<any> & UpdatedInfoCardComponentProps) {
+export function UpdatedInfoCardComponent(props: PropsWithChildren<UpdatedInfoCardComponentProps>) {
 
-    const {acknowledgeRun} = RunsContainer.useContainer();
+    const {acknowledgeRun, saveInMyRunsList} = RunsContainer.useContainer();
     return (
         <CardContainerComponent>
             <View style={styles.textWithIcon}>
@@ -43,7 +47,7 @@ export function UpdatedInfoCardComponent(props: PropsWithChildren<any> & Updated
                 <ButtonComponent
                     title="C'est noté !"
                     color="#f194ff"
-                    onPress={() => acknowledgeRun(props.run.id)}
+                    onPress={() => { acknowledgeRun(props.run); props.setIsNewOrUpdated(false); }}
                 />
             </View>
             {props.children}
