@@ -18,8 +18,6 @@ export function DetailRunsComponent() {
     const [isMine, setIsMine] = useState<boolean>();
     
     if(currentRun){
-        detailsChanges(currentRun!);
-
         async function checkIsNewOrUpdated() {
             setIsNewOrUpdated(((await runIsNew(currentRun!, authenticatedUser?.id) && runIsMine(currentRun!, authenticatedUser?.id))));
         }
@@ -67,13 +65,13 @@ export function DetailRunsComponent() {
 
             <DetailRunsContactBtn currentRun={currentRun}/>
 
-            <DetailRunsScheduleComponent currentRun={currentRun} highlighted={checkScheduleChanges(currentRun) ? true : false}/>
+            <DetailRunsScheduleComponent currentRun={currentRun} highlighted={isNewOrUpdated && checkScheduleChanges(currentRun) ? true : false}/>
 
-            <DetailRunsCourseComponent currentRun={currentRun} highlighted={checkWaypointsChanges(currentRun) ? true : false}/>
+            <DetailRunsCourseComponent currentRun={currentRun} highlighted={isNewOrUpdated && checkWaypointsChanges(currentRun) ? true : false}/>
 
-            <DetailRunsInfoComponent currentRun={currentRun} highlighted={checkInfoChanges(currentRun) ? true : false}/>
+            <DetailRunsInfoComponent currentRun={currentRun} highlighted={isNewOrUpdated && checkInfoChanges(currentRun) ? true : false}/>
 
-            <DetailRunsRunnersComponent currentRun={currentRun} highlighted={checkRunnersChanges(currentRun) ? true : false}/>
+            <DetailRunsRunnersComponent currentRun={currentRun} highlighted={isNewOrUpdated && checkRunnersChanges(currentRun) ? true : false}/>
         </ScrollView>
     )
 }
