@@ -94,7 +94,7 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
 
 function acknowledgeRunApi(run: RunResource): Promise<RunResource> {
     saveInMyRunsList(run);
-    return Axios.patch(`/runs/${run}/acknowledge`).then(res => parseRunResource(res.data)).catch(error => error.text);
+    return Axios.patch(`/runs/${run.id}/acknowledge`).then(res => parseRunResource(res.data)).catch(error => error.text);
 }
 
 function parseRunResource(runFromApi: any): RunResource {
@@ -124,8 +124,14 @@ async function saveInMyRunsList(run: RunResource): Promise<void>{
             parsedList.splice(index, 1);
         }
 
+        parsedList.forEach((r: RunResource) => {
+            console.log(r.id);
+        });
+
         parsedList.push(run);
-        await AsyncStorage.removeItem('myRuns').then(() => AsyncStorage.setItem('myRuns', JSON.stringify(parsedList)));
+        await AsyncStorage.removeItem('myRuns');
+        await AsyncStorage.setItem('myRuns', JSON.stringify(parsedList));
+        
 
     }else{
         console.log("ajout premier");
