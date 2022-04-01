@@ -25,6 +25,7 @@ export function ListRunsComponent() {
         } finally {
             setIsLoading(false)
         }
+        
     }
     const updateFilterStatus = (filterName: string) => {
         const currentStatus = activatedFilter.get(filterName, false);
