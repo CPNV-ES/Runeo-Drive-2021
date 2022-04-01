@@ -7,12 +7,18 @@ import {ImportantTextComponent} from "../../common/component/text/ImportantText.
 import {Colors} from "../../common/utils/Color.utils";
 
 export interface RunDetailsComponentProps {
-    currentRun: RunResource
+    currentRun: RunResource,
+    setIsNewOrUpdated: (isNewOrUpdated: boolean) => void,
 }
 
-export function DetailRunsAcknowledgeUpdateComponent({currentRun}: RunDetailsComponentProps) {
+export function DetailRunsAcknowledgeUpdateComponent({currentRun, setIsNewOrUpdated}: RunDetailsComponentProps) {
     return (
-        <UpdatedInfoCardComponent icon={"exclamation"} style={{ color: Colors.GREEN + '!important'}} title="Le run a été modifié" run={currentRun}>
+        <UpdatedInfoCardComponent 
+            icon={"exclamation"} 
+            style={{ color: Colors.GREEN + '!important'}} 
+            title="Le run a été modifié" 
+            run={currentRun}
+            setIsNewOrUpdated={setIsNewOrUpdated}>
         </UpdatedInfoCardComponent>
     )
 }
