@@ -1,6 +1,7 @@
 import {RunResource} from "../resources/Run.resource";
 import {List} from "immutable";
 import Axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {DateTime} from "luxon";
 import {useCacheHelper} from "../utils/CacheHelper.utils";
 import {DataContainerInterface} from "./DataContainer.interface";
@@ -12,6 +13,7 @@ export interface RunsContainer extends DataContainerInterface<RunResource> {
     stopRun: (run: RunResource, gasLevel: number) => Promise<void>,
     takeRun: (run: RunResource, runner: RunnerResource) => Promise<void>,
     acknowledgeRun: (run: RunResource) => Promise<void>,
+    saveInMyRunsList: (run: RunResource) => Promise<void>
 }
 
 export function useRunsContainer(): RunsContainer {
@@ -22,6 +24,7 @@ export function useRunsContainer(): RunsContainer {
             .sortBy(run => run.updated_at)
             .last<RunResource | undefined>();
 
+    
         return getRunsFromApi(mostRecentlyChangedRun?.updated_at)
             .then(fetchedRuns => cacheHelper.insertItems(List(fetchedRuns))).catch(error => error.text);
     }
@@ -50,6 +53,7 @@ export function useRunsContainer(): RunsContainer {
         stopRun,
         takeRun,
         acknowledgeRun,
+        saveInMyRunsList,
         empty: cacheHelper.empty
     }
 }
@@ -87,7 +91,9 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
     return Axios.get("/runs", {params}).then(res => res.data.map(parseRunResource)).catch(error => error.text);
 }
 
+
 function acknowledgeRunApi(run: RunResource): Promise<RunResource> {
+    saveInMyRunsList(run);
     return Axios.patch(`/runs/${run}/acknowledge`).then(res => parseRunResource(res.data)).catch(error => error.text);
 }
 
@@ -104,3 +110,24 @@ function parseRunResource(runFromApi: any): RunResource {
         runners: List(runFromApi.runners)
     }
 }
+async function saveInMyRunsList(run: RunResource): Promise<void>{
+    const myRuns = await AsyncStorage.getItem('myRuns');
+    console.log(run.id);
+    if (myRuns != null) {
+        console.log("ajout du run dans mes runs");
+        const parsedList = JSON.parse(myRuns);
+        
+        //pop the run if it is already in the list
+        const index = parsedList.findIndex((r: RunResource) => r.id === run.id);
+        if (index !== -1) {
+            parsedList.splice(index, 1);
+        }
+
+        parsedList.push(run);
+        await AsyncStorage.removeItem('myRuns').then(() => AsyncStorage.setItem('myRuns', JSON.stringify(parsedList)));
+
+    }else{
+        console.log("ajout premier");
+        return await AsyncStorage.setItem('myRuns', JSON.stringify([run]));
+    }
+};
