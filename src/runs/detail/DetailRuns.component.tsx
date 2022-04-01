@@ -67,13 +67,13 @@ export function DetailRunsComponent() {
 
             <DetailRunsContactBtn currentRun={currentRun}/>
 
-            <DetailRunsScheduleComponent currentRun={currentRun}/>
+            <DetailRunsScheduleComponent currentRun={currentRun} highlighted={checkScheduleChanges(currentRun) ? true : false}/>
 
-            <DetailRunsCourseComponent currentRun={currentRun}/>
+            <DetailRunsCourseComponent currentRun={currentRun} highlighted={checkWaypointsChanges(currentRun) ? true : false}/>
 
-            <DetailRunsInfoComponent currentRun={currentRun}/>
+            <DetailRunsInfoComponent currentRun={currentRun} highlighted={checkInfoChanges(currentRun) ? true : false}/>
 
-            <DetailRunsRunnersComponent currentRun={currentRun}/>
+            <DetailRunsRunnersComponent currentRun={currentRun} highlighted={checkRunnersChanges(currentRun) ? true : false}/>
         </ScrollView>
     )
 }
