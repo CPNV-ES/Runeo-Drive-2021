@@ -48,25 +48,6 @@ export async function runIsNew(run: RunResource, userId: any): Promise<boolean> 
 }
 
 
-export async function detailsChanges(run :RunResource): Promise<any> {
-    const getMyRunsList = await AsyncStorage.getItem('myRuns');
-
-    if (getMyRunsList) {
-        const myRunsList: RunResource[] = JSON.parse(getMyRunsList!);
-        for (let i = 0; i < myRunsList.length; i++) {
-            if (myRunsList[i].id != run.id) {
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-    
-
-    return false;
-};
-
-
 //Check the fields changes
 
 //function that check the schedule differences between the run and the same run of myRunsList
