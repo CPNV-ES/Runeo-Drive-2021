@@ -11,7 +11,7 @@ export interface CardComponentProps {
 
 export function CardContainerComponent(props: PropsWithChildren<any>) {
     return (
-        <View style={styles.card}>
+        <View style={props.style ?? styles.card}>
             {props.children}
         </View>
     )
@@ -28,7 +28,7 @@ export function CardComponent(props: PropsWithChildren<any> & CardComponentProps
 
 export function CardComponentWithIcon(props: PropsWithChildren<any> & CardComponentProps) {
     return (
-        <CardContainerComponent>
+        <CardContainerComponent style={props.style}>
             <View style={styles.textWithIcon}>
                 <Icon
                     style={styles.icon}
