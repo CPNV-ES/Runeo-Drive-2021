@@ -20,7 +20,7 @@ export function ListRunsItemComponent ({onSelectRun, run} : ListRunsItemComponen
     const [isNew, setIsNew] = useState<boolean>();
 
     async function checkIsNewOrUpdated() {
-        setIsNewOrUpdated(((await runIsNew(run, authenticatedUser?.id) && runIsMine(run, authenticatedUser?.id)) || lastUpdatedRun(run, authenticatedUser?.id)));
+        setIsNewOrUpdated(((lastUpdatedRun(run, authenticatedUser?.id) || (await runIsNew(run, authenticatedUser?.id) && runIsMine(run, authenticatedUser?.id)))));
     }
 
     async function checkIsNew() {
