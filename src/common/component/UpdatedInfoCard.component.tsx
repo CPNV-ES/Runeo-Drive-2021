@@ -47,7 +47,7 @@ export function UpdatedInfoCardComponent(props: PropsWithChildren<UpdatedInfoCar
                 <ButtonComponent
                     title="C'est noté !"
                     color="#f194ff"
-                    onPress={() => { acknowledgeRun(props.run); props.setIsNewOrUpdated(false); }}
+                    onPress={() => { acknowledgeRun(props.run); props.setIsNewOrUpdated(false);  }}
                 />
             </View>
             {props.children}
