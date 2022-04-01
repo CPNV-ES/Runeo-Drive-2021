@@ -9,7 +9,7 @@ export interface DetailRunsContactBtnComponent {
     currentRun: RunResource
 }
 
-export function DetailRunsContactBtn({currentRun}: DetailRunsContactBtnComponent) {
+export function DetailRunsContactBtn({currentRun}: DetailRunsContactBtnComponent, highlighted: Boolean) {
     const numContact = currentRun.num_contact;
 
     if (numContact && numContact != "0") {

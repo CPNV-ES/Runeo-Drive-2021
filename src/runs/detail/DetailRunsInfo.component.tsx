@@ -7,13 +7,16 @@ import {ImportantTextComponent} from "../../common/component/text/ImportantText.
 import {Colors} from "../../common/utils/Color.utils";
 
 export interface InfoDetailRunsComponentProps {
-    currentRun: RunResource
+    currentRun: RunResource,
+    highlighted: Boolean
 }
 
-export function DetailRunsInfoComponent({currentRun}: InfoDetailRunsComponentProps) {
+export function DetailRunsInfoComponent({currentRun, highlighted}: InfoDetailRunsComponentProps) {
     return (
-        <CardComponentWithIcon title={"Informations"} icon={"info-circle"}>
-            <InlineTextComponent>
+        <CardComponentWithIcon title={"Informations"} icon={"info-circle"} 
+        style={ highlighted ? { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.GREEN, margin: 5, padding: 10, borderRadius: 10 } :
+            { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.WHITE, margin: 5, padding: 10, borderRadius: 10 }}>
+             <InlineTextComponent>
                 <Text style={styles.textRegular}>Nombre de passager : </Text>
                 <ImportantTextComponent>{currentRun.nb_passenger}</ImportantTextComponent>
             </InlineTextComponent>

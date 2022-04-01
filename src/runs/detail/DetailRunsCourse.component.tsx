@@ -6,16 +6,20 @@ import {CardComponentWithIcon} from "../../common/component/Card.component";
 import {ImportantTextComponent} from "../../common/component/text/ImportantText.component";
 import {MeetingTextComponent} from "../../common/component/text/MeetingText.component";
 import {InlineTextComponent} from "../../common/component/text/InlineText.component";
+import {Colors} from "../../common/utils/Color.utils";
 
 export interface CourseDetailRunsComponentProps {
-    currentRun: RunResource
+    currentRun: RunResource,
+    highlighted: Boolean
 }
 
-export function DetailRunsCourseComponent({currentRun}: CourseDetailRunsComponentProps) {
+export function DetailRunsCourseComponent({currentRun, highlighted}: CourseDetailRunsComponentProps) {
     const runDuration = currentRun.finished_at.diff(currentRun.begin_at);
 
     return (
-        <CardComponentWithIcon title={"Parcours"} icon={"map-marked-alt"}>
+        <CardComponentWithIcon title={"Parcours"} icon={"map-marked-alt"}
+            style={ highlighted ? { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.GREEN, margin: 5, padding: 10, borderRadius: 10 } :
+                { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.WHITE, margin: 5, padding: 10, borderRadius: 10 }}>
             <View>
                 {currentRun.waypoints.map((waypoint, idx) => (
                     waypoint.meeting_time ?

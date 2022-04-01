@@ -12,10 +12,11 @@ import {Colors} from "../../common/utils/Color.utils";
 import {callPhoneNumber} from "../../common/utils/Phone.utils";
 
 export interface RunnersDetailRunsComponentProps {
-    currentRun: RunResource
+    currentRun: RunResource,
+    highlighted: Boolean
 }
 
-export function DetailRunsRunnersComponent({currentRun}: RunnersDetailRunsComponentProps) {
+export function DetailRunsRunnersComponent({currentRun, highlighted}: RunnersDetailRunsComponentProps) {
     const {authenticatedUser} = AuthContainer.useContainer()
     const {isInternetReachable} = NetworkContainer.useContainer();
     const {takeRun} = RunsContainer.useContainer();
@@ -29,7 +30,9 @@ export function DetailRunsRunnersComponent({currentRun}: RunnersDetailRunsCompon
     }
 
     return (
-        <CardComponentWithIcon title={"Runners"} icon={"tachometer-alt"}>
+        <CardComponentWithIcon title={"Runners"} icon={"tachometer-alt"} 
+            style={ highlighted ? { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.GREEN, margin: 5, padding: 10, borderRadius: 10 } :
+            { borderWidth: 7, borderStyle: 'solid', borderColor: Colors.WHITE, margin: 5, padding: 10, borderRadius: 10 }}>
             <Text style={{color: Colors.GREY, fontFamily: 'Montserrat-Regular'}}>Chauffeurs et Véhicules :</Text>
             {
                 currentRun.runners.map(runner => {
