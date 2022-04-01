@@ -6,6 +6,7 @@ import {DateTime} from "luxon";
 import {useCacheHelper} from "../utils/CacheHelper.utils";
 import {DataContainerInterface} from "./DataContainer.interface";
 import {RunnerResource} from "../resources/Runner.resource";
+import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 
 export interface RunsContainer extends DataContainerInterface<RunResource> {
     updateVehicle: (runnerId: number, carId: number) => Promise<void>,
@@ -23,7 +24,6 @@ export function useRunsContainer(): RunsContainer {
         const mostRecentlyChangedRun = cacheHelper.items
             .sortBy(run => run.updated_at)
             .last<RunResource | undefined>();
-
     
         return getRunsFromApi(mostRecentlyChangedRun?.updated_at)
             .then(fetchedRuns => cacheHelper.insertItems(List(fetchedRuns))).catch(error => error.text);
@@ -110,6 +110,7 @@ function parseRunResource(runFromApi: any): RunResource {
         runners: List(runFromApi.runners)
     }
 }
+
 async function saveInMyRunsList(run: RunResource): Promise<void>{
     const myRuns = await AsyncStorage.getItem('myRuns');
     console.log(run.id);
