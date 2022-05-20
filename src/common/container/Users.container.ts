@@ -7,8 +7,10 @@ import {DataContainerInterface} from "./DataContainer.interface";
 export function useUsersContainer(): DataContainerInterface<UserResource> {
     const cacheHelper = useCacheHelper<UserResource>("USER", (rawUser: any) => rawUser);
 
-    const refresh = (): Promise<void> => getUsersFromAPi()
-        .then(fetchedUsers => cacheHelper.setItems(List(fetchedUsers)))
+    const refresh = (): Promise<void> => {
+        return getUsersFromAPi()
+            .then(fetchedUsers => cacheHelper.insertItems(List(fetchedUsers))).catch(error => error.text);
+    }
 
     return {
         items: cacheHelper.items,

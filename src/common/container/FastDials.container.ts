@@ -7,8 +7,12 @@ import {DataContainerInterface} from "./DataContainer.interface";
 export function useFastDialsContainer(): DataContainerInterface<FastDialResource> {
     const cacheHelper = useCacheHelper<FastDialResource>("FASTDIAL", (rawFastDial: any) => rawFastDial);
 
-    const refresh = (): Promise<void> => getFastDialsFromApi()
-        .then(fetchedFastDials => cacheHelper.setItems(List(fetchedFastDials)))
+    const refresh = (): Promise<void> => {
+        return getFastDialsFromApi()
+            .then(fetchedFastDials => cacheHelper.insertItems(List(fetchedFastDials))).catch(error => error.text);
+    }
+
+    
 
     return {
         items: cacheHelper.items,
