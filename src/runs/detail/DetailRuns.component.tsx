@@ -10,6 +10,7 @@ import {DetailRunsAcknowledgeUpdateComponent} from "./DetailRunsAcknowledgeUpdat
 import {useRunFromRouteParam} from "../../common/hook/Run.hook";
 import {lastUpdatedRun} from "../../common/utils/LastUpdatedRun.utils";
 import {AuthContainer} from "../../Provider.component";
+import {DetailRunsCommentComponent} from "./DetailRunsComment.component";
 
 export function DetailRunsComponent() {
     const currentRun = useRunFromRouteParam();
@@ -35,6 +36,8 @@ export function DetailRunsComponent() {
             <DetailRunsInfoComponent currentRun={currentRun}/>
 
             <DetailRunsRunnersComponent currentRun={currentRun}/>
+
+            <DetailRunsCommentComponent currentRun={currentRun}/>
         </ScrollView>
     )
 }
