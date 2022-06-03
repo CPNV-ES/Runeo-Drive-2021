@@ -6,6 +6,7 @@ import {DetailRunsComponent} from "./detail/DetailRuns.component";
 import {RunsContainer} from "../Provider.component";
 import {RunsSelectVehicleComponent} from "./RunsSelectVehicle.component";
 import {RunsEndComponent} from "./RunsEnd.component";
+import {CommentRunsComponent} from "./comment/CommentRuns.component";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,11 @@ export function RunsComponent() {
                                   headerBackTitle: "Annuler"
                               }
                           }}/>
+            <Stack.Screen
+                name={"comment"}
+                component={CommentRunsComponent}
+                options={{headerTitle: "Commentaires"}}
+            />
         </Stack.Navigator>
     )
 }
