@@ -5,9 +5,20 @@ import Axios from "axios";
 import { useFonts } from 'expo-font';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import Constants from 'expo-constants';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+AsyncStorage.getItem('APPURL').then(url => {
+    if (url) {
+      if (url.length > 0) {
+        Axios.defaults.baseURL = url;
+      }
+    }
+    
+}).catch(err => {
+  Axios.defaults.baseURL = "https://runeo.mycpnv.ch/api";
+})
 
 
-Axios.defaults.baseURL = "https://runeo.mycpnv.ch/api";
 
 export default function App() {
   const [loaded] = useFonts({

@@ -9,6 +9,7 @@ import {clearCaches} from "../utils/Cache.utils";
 
 const TOKEN_STORAGE_KEY = "apiToken";
 const USER_STORAGE_KEY = "authenticatedUser";
+const DEFAULT_APIURL = "https://runeo.mycpnv.ch/api";
 
 export interface AuthContainer {
     authenticatedUser: UserResource | null,
@@ -16,6 +17,8 @@ export interface AuthContainer {
     logout: () => Promise<void>,
     refreshAuthenticated: () => Promise<void>,
     setNotificationDeviceId: (token: string) => Promise<void>
+    updateAPIURL: (token: string) => Promise<void>
+    getAPIURL:() => Promise<string>
 }
 
 export function useAuthContainer(networkContainer: Container<NetworkContainer>) {
@@ -69,13 +72,33 @@ export function useAuthContainer(networkContainer: Container<NetworkContainer>) 
             await AsyncStorage.removeItem(USER_STORAGE_KEY)
             setAuthenticatedUser(null)
         }
+        const getAPIURL = async (): Promise<string> =>{
+            try{
+                const APPURL = await AsyncStorage.getItem('APPURL');
+                if(APPURL!==null){
+                    return APPURL;
+                }
+                return DEFAULT_APIURL;
+            }catch(e){
+                return DEFAULT_APIURL;
+            }
+        }
+        const updateAPIURL = async (input: string): Promise<void> =>{
 
+            await AsyncStorage.setItem('APPURL',input.toLowerCase()).then(()=>{
+                Axios.defaults.baseURL= ""+input.toLowerCase();
+            }).catch(e=>{
+                console.log(e);
+            });
+        }
         return {
             authenticatedUser,
             authenticate,
             logout,
             refreshAuthenticated,
-            setNotificationDeviceId
+            setNotificationDeviceId,
+            updateAPIURL,
+            getAPIURL
         }
     }
 }
