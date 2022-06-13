@@ -33,7 +33,8 @@ export interface RunResource extends CommonResource {
     good_for_me: boolean,
     waypoints: List<Waypoint>,
     runners: List<RunnerResource>,
-    logs: List<Log>
+    getLogs: List<Log>
+
 }
 
 export interface Waypoint {
