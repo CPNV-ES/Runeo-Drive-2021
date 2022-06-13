@@ -14,7 +14,6 @@ import {
 
 export function LogsDetailRunComponent(props: { currentRun: RunResource}) {
     const {currentRun} = props;
-    console.log(currentRun.logs);
     const listData = Array(20)
         .fill("")
         .map((_, i) => ({ key: `${i}`, text: `${i}` }));
