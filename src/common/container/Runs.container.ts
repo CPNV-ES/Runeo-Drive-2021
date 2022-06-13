@@ -12,7 +12,8 @@ export interface RunsContainer extends DataContainerInterface<RunResource> {
     stopRun: (run: RunResource, gasLevel: number) => Promise<void>,
     takeRun: (run: RunResource, runner: RunnerResource) => Promise<void>,
     acknowledgeRun: (run: RunResource) => Promise<void>,
-    logs: (run: RunResource) => Promise<void>
+    getLogs: (run: RunResource) => Promise<void>,
+    postLog: (run: RunResource, message: string) => Promise<void>
 }
 
 export function useRunsContainer(): RunsContainer {
@@ -42,8 +43,11 @@ export function useRunsContainer(): RunsContainer {
     const acknowledgeRun = (run: RunResource): Promise<void> =>
         acknowledgeRunApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
-    const logs = (run: RunResource): Promise<void> =>
+    const getLogs = (run: RunResource): Promise<void> =>
         getLogsFromApi(run).catch(error => error.text);
+
+    const postLog = (run: RunResource, message: string): Promise<void> =>
+        postLogToApi(run, message).then(cacheHelper.insertItem).catch(error => error.text);
 
     return {
         items: cacheHelper.items,
@@ -54,7 +58,8 @@ export function useRunsContainer(): RunsContainer {
         stopRun,
         takeRun,
         acknowledgeRun,
-        logs,
+        getLogs,
+        postLog,
         empty: cacheHelper.empty
 
     }
@@ -97,6 +102,12 @@ function getLogsFromApi(run: RunResource): Promise<RunResource[]> {
     return Axios.get(`/runs/${run.id}/logs`).then(res => res.data.map(parseRunResource)).catch(error => error.text);
 }
 
+function postLogToApi(run: RunResource, message: string): Promise<RunResource> {
+    return Axios.post(`/runs/${run.id}/logs`, {
+        message
+    }).then(res => parseRunResource(res.data)).catch(error => error.text);
+}
+
 function acknowledgeRunApi(run: RunResource): Promise<RunResource> {
     return Axios.patch(`/runs/${run}/acknowledge`).then(res => parseRunResource(res.data)).catch(error => error.text);
 }
@@ -112,6 +123,6 @@ function parseRunResource(runFromApi: any): RunResource {
         acknowledged_at: DateTime.fromISO(runFromApi.acknowledged_at),
         waypoints: List(runFromApi.waypoints),
         runners: List(runFromApi.runners),
-        logs: List(runFromApi.logs)
+        getLogs: List(runFromApi.getLogs)
     }
 }
