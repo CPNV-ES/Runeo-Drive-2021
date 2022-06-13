@@ -12,6 +12,7 @@ export interface RunsContainer extends DataContainerInterface<RunResource> {
     stopRun: (run: RunResource, gasLevel: number) => Promise<void>,
     takeRun: (run: RunResource, runner: RunnerResource) => Promise<void>,
     acknowledgeRun: (run: RunResource) => Promise<void>,
+    logs: (run: RunResource) => Promise<void>
 }
 
 export function useRunsContainer(): RunsContainer {
@@ -41,6 +42,9 @@ export function useRunsContainer(): RunsContainer {
     const acknowledgeRun = (run: RunResource): Promise<void> =>
         acknowledgeRunApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
+    const logs = (run: RunResource): Promise<void> =>
+        getLogsFromApi(run).catch(error => error.text);
+
     return {
         items: cacheHelper.items,
         readFromCache: cacheHelper.readFromCache,
@@ -50,7 +54,9 @@ export function useRunsContainer(): RunsContainer {
         stopRun,
         takeRun,
         acknowledgeRun,
+        logs,
         empty: cacheHelper.empty
+
     }
 }
 
@@ -87,6 +93,10 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
     return Axios.get("/runs", {params}).then(res => res.data.map(parseRunResource)).catch(error => error.text);
 }
 
+function getLogsFromApi(run: RunResource): Promise<RunResource[]> {
+    return Axios.get(`/runs/${run.id}/logs`).then(res => res.data.map(parseRunResource)).catch(error => error.text);
+}
+
 function acknowledgeRunApi(run: RunResource): Promise<RunResource> {
     return Axios.patch(`/runs/${run}/acknowledge`).then(res => parseRunResource(res.data)).catch(error => error.text);
 }
@@ -101,6 +111,7 @@ function parseRunResource(runFromApi: any): RunResource {
         updated_at: DateTime.fromISO(runFromApi.updated_at),
         acknowledged_at: DateTime.fromISO(runFromApi.acknowledged_at),
         waypoints: List(runFromApi.waypoints),
-        runners: List(runFromApi.runners)
+        runners: List(runFromApi.runners),
+        logs: List(runFromApi.logs)
     }
 }
