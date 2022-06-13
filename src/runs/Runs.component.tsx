@@ -49,7 +49,13 @@ export function RunsComponent() {
             <Stack.Screen
                 name={"comment"}
                 component={CommentRunsComponent}
-                options={{headerTitle: "Commentaires"}}
+                options={(route) => {
+                    const {runId} = route.route.params as RunDetailParams;
+                    const run = RunContainer.items.find(run => run.id == runId);
+                    return {
+                        title: `${run?.title.toUpperCase()} - Journal`,
+                    }
+                }}
             />
         </Stack.Navigator>
     )
