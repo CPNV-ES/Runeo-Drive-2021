@@ -1,41 +1,101 @@
-import React, {} from "react";
+import React, {useState} from "react";
 import {RunResource} from "../../common/resources/Run.resource";
 import {SwipeListView} from "react-native-swipe-list-view";
 import {
-    View,
-    Text,
     StyleSheet,
-    Animated,
+    Text,
     TouchableOpacity,
     TouchableHighlight,
-    StatusBar,
+    View,
 } from "react-native";
 
 
-export function LogsDetailRunComponent(props: { currentRun: RunResource}) {
+export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
     const {currentRun} = props;
-    const listData = Array(20)
-        .fill("")
-        .map((_, i) => ({ key: `${i}`, text: `${i}` }));
+    console.log(currentRun.getLogs);
+
+    const [listData, setListData] = useState(
+        Array(20)
+            .fill('')
+            .map((_, i) => ({key: `${i}`, text: `item #${i}`}))
+    );
+
+    /**
+     * On swipe row, delete the row
+     * @param rowMap
+     * @param rowKey
+     */
+    const onSwipeDeleteElement = (rowMap: string, rowKey: string) => {
+        //TODO : delete the row
+    }
+
+    /**
+     * On row press, open the row
+     * @param rowMap
+     * @param rowKey
+     */
+    const onSwipeInspectElement = (rowMap: string, rowKey: string) => {
+        //TODO : inspect the row
+    }
+
+    /**
+     * Render Item listed in the data source
+     * @param listData
+     */
+    const renderItem = listData => (
+        <TouchableHighlight
+            onPress={() => console.log('You touched me UwU')}
+            style={styles.rowFront}
+            underlayColor={'#AAA'}
+        >
+            <View>
+                <Text>{listData.item.text}</Text>
+            </View>
+        </TouchableHighlight>
+    );
+
+    /**
+     * Render the hidden buttons in each row.
+     * @param listData
+     * @param rowMap
+     */
+    const renderHiddenItem = ({listData}, rowMap) => (
+        <View style={styles.rowBack}>
+            <Text>Left</Text>
+            <TouchableOpacity
+                style={[styles.backRightBtn, styles.backRightBtnLeft]}
+                onPress={() => console.log("Left button")}
+            >
+                <Text style={styles.backTextWhite}>Inspect</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[styles.backRightBtn, styles.backRightBtnRight]}
+                onPress={() => console.log("Right button")}
+            >
+                <Text style={styles.backTextWhite}>Delete</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
     return (
-        <SwipeListView
-            data={listData}
-            renderItem={({ item }) => (
-                <View style={styles.rowFront}>
-                    <Text>{item.text}</Text>
-                </View>
-            )}
-            renderHiddenItem={({ item }) => (
-                <View style={styles.rowBack}>
-                    <Text>Left</Text>
-                    <Text>Right</Text>
-                </View>
-            )}
-        />
+        <View style={styles.container}>
+            <SwipeListView
+                data={listData}
+                renderItem={renderItem}
+                renderHiddenItem={renderHiddenItem}
+                rightOpenValue={-150}
+                leftOpenValue={75}
+                previewRowKey={'0'}
+                previewOpenValue={-40}
+                previewOpenDelay={3000}
+            />
+        </View>
     );
 }
 
+/**
+ * Stylesheet for the component
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,
