@@ -21,7 +21,7 @@ export function CommentRunsComponent() {
 
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
-
+            <LogsDetailRunComponent currentRun={currentRun}/>
             <CreateLogDetailRunsComponent currentRun={currentRun}/>
         </ScrollView>
     );
