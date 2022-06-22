@@ -26,16 +26,7 @@ export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
      * @param rowKey
      */
     const onSwipeDeleteElement = (rowMap: string, rowKey: string) => {
-        //TODO : delete the row
-    }
-
-    /**
-     * On row press, open the row
-     * @param rowMap
-     * @param rowKey
-     */
-    const onSwipeInspectElement = (rowMap: string, rowKey: string) => {
-        //TODO : inspect the row
+        //TODO: delete the row
     }
 
     /**
@@ -44,7 +35,7 @@ export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
      */
     const renderItem = listData => (
         <TouchableHighlight
-            onPress={() => console.log('You touched me UwU')}
+            onPress={() => console.log(`I have been clicked ${listData.item.text}`)}
             style={styles.rowFront}
             underlayColor={'#AAA'}
         >
@@ -61,13 +52,6 @@ export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
      */
     const renderHiddenItem = ({listData}, rowMap) => (
         <View style={styles.rowBack}>
-            <Text>Left</Text>
-            <TouchableOpacity
-                style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                onPress={() => console.log("Left button")}
-            >
-                <Text style={styles.backTextWhite}>Inspect</Text>
-            </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
                 onPress={() => console.log("Right button")}
