@@ -83,8 +83,8 @@ export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
                 data={listData}
                 renderItem={renderItem}
                 renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-150}
-                leftOpenValue={75}
+                rightOpenValue={-75}
+                leftOpenValue={0}
                 previewRowKey={'0'}
                 previewOpenValue={-40}
                 previewOpenDelay={3000}
