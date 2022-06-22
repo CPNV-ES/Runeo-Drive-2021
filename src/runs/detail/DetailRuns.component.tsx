@@ -16,6 +16,8 @@ export function DetailRunsComponent() {
     const currentRun = useRunFromRouteParam();
     const {authenticatedUser} = AuthContainer.useContainer();
 
+    console.log(currentRun);
+
     if (!currentRun) {
         console.error("No run matching provided found for provided run id ")
         return <Fragment/>;
