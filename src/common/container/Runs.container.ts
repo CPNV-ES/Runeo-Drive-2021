@@ -100,7 +100,7 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
 }
 
 function getLogsFromApi(run: RunResource): Promise<LogResource[]> {
-    return Axios.get(`/runs/${run}/logs`).then(res => console.log(res.data)).catch(error => error.text);
+    return Axios.get(`/runs/${run}/logs`).then(res => console.log(res.data.map(parseLogResource))).catch(error => error.text);
 }
 
 function postLogToApi(run: RunResource, description: string): Promise<RunResource> {
