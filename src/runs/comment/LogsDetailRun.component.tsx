@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {RunResource} from "../../common/resources/Run.resource";
+import {RunsContainer} from "../../Provider.component";
 import {SwipeListView} from "react-native-swipe-list-view";
 import {
     StyleSheet,
@@ -12,6 +13,8 @@ import {
 
 export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
     const {currentRun} = props;
+    const runsContainer = RunsContainer.useContainer();
+    console.log("Good View", runsContainer.getLogs(currentRun.id));
     const [listData, setListData] = useState(
         Array(20)
             .fill('')

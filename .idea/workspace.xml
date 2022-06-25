@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="306c55b2-2605-475a-9f43-fb581c40a6c8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/common/resources/Log.resource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/container/Runs.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/container/Runs.container.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/resources/Run.resource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/resources/Run.resource.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/runs/comment/LogsDetailRun.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/comment/LogsDetailRun.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runs/detail/DetailRuns.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/detail/DetailRuns.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/runs/list/ListRuns.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/list/ListRuns.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/runs/list/ListRunsItem.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/list/ListRunsItem.component.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,16 +76,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/runs/comment/LogsDetailRun.component.tsx</url>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
