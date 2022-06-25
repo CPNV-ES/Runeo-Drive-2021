@@ -2,6 +2,7 @@ import {DateTime} from "luxon";
 import {List} from "immutable";
 import {RunnerResource} from "./Runner.resource";
 import {CommonResource} from "./Common.resource";
+import {LogResource} from "./Log.resource";
 
 export enum RunStatus {
     GONE = "gone",
@@ -32,15 +33,9 @@ export interface RunResource extends CommonResource {
     num_contact: string,
     good_for_me: boolean,
     waypoints: List<Waypoint>,
-    runners: List<RunnerResource>,
-    getLogs: List<Log>
-
+    runners: List<RunnerResource>
 }
 
 export interface Waypoint {
     nickname: string
-}
-
-export interface Log {
-    message: string
 }
