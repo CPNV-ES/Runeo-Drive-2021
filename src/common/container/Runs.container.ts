@@ -123,8 +123,7 @@ function parseRunResource(runFromApi: any): RunResource {
         updated_at: DateTime.fromISO(runFromApi.updated_at),
         acknowledged_at: DateTime.fromISO(runFromApi.acknowledged_at),
         waypoints: List(runFromApi.waypoints),
-        runners: List(runFromApi.runners),
-        getLogs: List(runFromApi.getLogs)
+        runners: List(runFromApi.runners)
     }
 }
 
