@@ -83,6 +83,7 @@ export function ListRunsComponent() {
     }
 
     const data = useMemo(() => {
+        console.log("Logs", runContainer.getLogs(1));
         return runContainer.items
             .filter(filterRuns)
             .sortBy(run => run.title)
