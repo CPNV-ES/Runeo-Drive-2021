@@ -45,7 +45,7 @@ export function useRunsContainer(): RunsContainer {
         acknowledgeRunApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
     const getLogs = (run: RunResource): Promise<void> =>
-        getLogsFromApi(run).catch(error => error.text);
+        getLogsFromApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
     const postLog = (run: RunResource, message: string): Promise<void> =>
         postLogToApi(run, message).then(cacheHelper.insertItem).catch(error => error.text);
@@ -125,5 +125,20 @@ function parseRunResource(runFromApi: any): RunResource {
         waypoints: List(runFromApi.waypoints),
         runners: List(runFromApi.runners),
         getLogs: List(runFromApi.getLogs)
+    }
+}
+
+/**
+ * Parses a log from the API
+ * @param logFromApi
+ * @returns {LogResource}
+ */
+function parseLogResource(logFromApi: any): LogResource {
+    return {
+        ...logFromApi,
+        updated_at: DateTime.fromISO(logFromApi.updated_at),
+        description: logFromApi.description,
+        id: logFromApi.id,
+        action: logFromApi.action
     }
 }
