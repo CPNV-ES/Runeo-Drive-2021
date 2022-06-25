@@ -99,13 +99,13 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
     return Axios.get("/runs", {params}).then(res => res.data.map(parseRunResource)).catch(error => error.text);
 }
 
-function getLogsFromApi(run: RunResource): Promise<RunResource[]> {
-    return Axios.get(`/runs/${run.id}/logs`).then(res => res.data.map(parseRunResource)).catch(error => error.text);
+function getLogsFromApi(run: RunResource): Promise<LogResource[]> {
+    return Axios.get(`/runs/${run}/logs`).then(res => console.log(res.data)).catch(error => error.text);
 }
 
-function postLogToApi(run: RunResource, message: string): Promise<RunResource> {
-    return Axios.post(`/runs/${run.id}/logs`, {
-        message
+function postLogToApi(run: RunResource, description: string): Promise<RunResource> {
+    return Axios.post(`/runs/${run}/logs`, {
+        description
     }).then(res => parseRunResource(res.data)).catch(error => error.text);
 }
 
