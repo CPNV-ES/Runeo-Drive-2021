@@ -12,8 +12,6 @@ import {
 
 export function LogsDetailRunComponent(props: { currentRun: RunResource }) {
     const {currentRun} = props;
-    console.log(currentRun.getLogs);
-
     const [listData, setListData] = useState(
         Array(20)
             .fill('')
