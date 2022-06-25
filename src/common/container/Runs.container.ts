@@ -5,6 +5,7 @@ import {DateTime} from "luxon";
 import {useCacheHelper} from "../utils/CacheHelper.utils";
 import {DataContainerInterface} from "./DataContainer.interface";
 import {RunnerResource} from "../resources/Runner.resource";
+import {LogResource} from "../resources/Log.resource";
 
 export interface RunsContainer extends DataContainerInterface<RunResource> {
     updateVehicle: (runnerId: number, carId: number) => Promise<void>,
