@@ -10,11 +10,11 @@ export interface InfoDetailRunsComponentProps {
     currentRun: RunResource
 }
 
-    export function DetailRunsCommentComponent({currentRun}: InfoDetailRunsComponentProps) {
+    export function DetailRunsCommentComponent() {
     const navigation = useNavigation();
 
     const onChangePress = () => {
-        navigation.navigate("comment", {runId: currentRun.id});
+        navigation.navigate("comment", {runId: 1});
     }
     return (
         <CardComponentWithIcon title={"Plus d'informations"} icon={"info-circle"}>
