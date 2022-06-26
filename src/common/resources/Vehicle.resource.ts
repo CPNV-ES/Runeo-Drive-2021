@@ -13,4 +13,10 @@ export interface VehicleResource extends CommonResource {
     user: UserResource | boolean | null,
     type: VehicleCategoryResource,
     comments: List<CommentResource>
+    Photos: List<VehiclePhoto>
+}
+export interface VehiclePhoto extends CommonResource {
+    id: number,
+    url: string,
+    title: string,
 }

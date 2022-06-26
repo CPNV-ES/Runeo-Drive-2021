@@ -6,6 +6,7 @@ import {PlateDetailVehiclesComponent} from "./PlateDetailVehicles.component";
 import {GasLevelDetailVehiclesComponent} from "./GasLevelDetailVehicles.component";
 import {CommentDetailVehiclesComponent} from "./CommentDetailVehicles.component";
 import {CreateCommentDetailVehicles} from "./CreateCommentDetailVehicles.component";
+import {ImageSliderComponent} from "./ImageSlider.component";
 
 export interface VehicleDetailParams {
     vehicleId: number
@@ -27,6 +28,9 @@ export function DetailVehiclesComponent() {
 
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
+            
+            <ImageSliderComponent currentVehicle={currentVehicle} />
+
             <PlateDetailVehiclesComponent currentVehicle={currentVehicle}/>
 
             <GasLevelDetailVehiclesComponent currentVehicle={currentVehicle}/>
