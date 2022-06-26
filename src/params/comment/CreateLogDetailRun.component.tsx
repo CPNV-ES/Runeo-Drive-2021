@@ -1,41 +1,59 @@
 import React, {useState} from "react";
 import {SafeAreaView, View, Text} from "react-native";
-import {Formik} from "formik";
+import {Formik, FormikHelpers} from "formik";
 import {Input} from "react-native-elements";
 import {ButtonComponent} from "../../common/component/ButtonComponent";
 import {RunResource} from "../../common/resources/Run.resource";
-import {NetworkContainer, RunsContainer, VehiclesContainer} from "../../Provider.component";
+import {AuthContainer, NetworkContainer, RunsContainer, VehiclesContainer} from "../../Provider.component";
+import {TextInputComponent} from "../../common/component/TextInput.component";
+import Axios from "axios";
+import {useNavigation} from "@react-navigation/native";
 
 export function CreateLogDetailRunsComponent(props: { runId: number}) {
-    const runsContainer = RunsContainer.useContainer();
-    const networkContainer = NetworkContainer.useContainer();
-    const {currentRun} = props;
+    const {runId} = props;
+    const authContainer = AuthContainer.useContainer();
+    const navigation = useNavigation();
+
+    const initialValues = {
+        description: ""
+    }
+
+    const onSubmit = async (values: { description: string }, {setSubmitting, setFieldError}: FormikHelpers<any>) => {
+        const data = {
+            description: values.description,
+            loggable_id : runId,
+            loggable_type: "App\\Models\\Run",
+            action: "created",
+            user_id: authContainer.authenticatedUser?.id
+        }
+
+        Axios.post(`/runs/${runId}/logs`, data)
+            .then(() => {
+                console.log("Log created");
+                navigation.navigate("list");
+            })
+    }
 
     return (
-        <SafeAreaView>
-            <View>
-                <Formik
-                    initialValues={{content: ''}}
-                    onSubmit={(value, {resetForm}) => {
-                        runsContainer.postLog(currentRun, value.content).then(r => {
-                            resetForm();
-                        });
-                    }}
-                >
-                    {({handleChange, handleBlur, handleSubmit, values}) => (
-                        <View style={{paddingHorizontal: 10}}>
-                            <Input
-                                onChangeText={handleChange('content')}
-                                onBlur={handleBlur('content')}
-                                value={values.content}
-                                placeholder='Ajouter une entrée'
-                            />
-                            <ButtonComponent disabled={!networkContainer.isInternetReachable} onPress={handleSubmit}
-                                             title='Ajouter'/>
-                        </View>
-                    )}
-                </Formik>
-            </View>
-        </SafeAreaView>
-    );
+        <Formik
+            onSubmit={onSubmit}
+            initialValues={initialValues}>
+            {(formik) => (
+                <View>
+                    <TextInputComponent
+                        name={"description"}
+                        formik={formik}
+                        inputProps={{
+                            placeholder: "Votre commentaire"
+                        }}/>
+
+                    <ButtonComponent
+                        title="Ajouter"
+                        onPress={formik.handleSubmit}
+                        disabled={formik.isSubmitting || !formik.isValid}/>
+                </View>
+            )}
+
+        </Formik>
+    )
 }
