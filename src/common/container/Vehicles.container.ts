@@ -10,7 +10,6 @@ export interface VehiclesContainer {
     postComment: (vehicle: VehicleResource, comment: string) => void,
     getVehiclePhotos: (vehicle:VehicleResource) => Promise<VehiclePhoto[]>,
     getVehiclePhoto: (vehicle: VehicleResource,vehiclePhotoId:number) => Promise<VehiclePhoto> 
-    postVehiclePhoto: (vehicle_id: number,imageData: string,imageTitle: string) => Promise<VehiclePhoto> 
 }
 
 export function useVehiclesContainer(): DataContainerInterface<VehicleResource> & VehiclesContainer {
@@ -31,7 +30,6 @@ export function useVehiclesContainer(): DataContainerInterface<VehicleResource> 
         })
     const getVehiclePhotos = (vehicle: VehicleResource) => getVehiclesPhotosFromAPI(vehicle)
     const getVehiclePhoto= (vehicle: VehicleResource,vehiclePhotoId:number) => getVehiclesPhotoFromAPI(vehicle,vehiclePhotoId)
-    const postVehiclePhoto= (vehicleId: number,imageData:string,imageTitle:string) => postVehiclesPhotoFromAPI(vehicleId,imageData,imageTitle)
     return {
         items: cacheHelper.items,
         readFromCache: cacheHelper.readFromCache,
@@ -39,8 +37,7 @@ export function useVehiclesContainer(): DataContainerInterface<VehicleResource> 
         refresh,
         postComment,
         getVehiclePhotos,
-        getVehiclePhoto,
-        postVehiclePhoto
+        getVehiclePhoto
     }
 }
 
@@ -51,27 +48,14 @@ function getVehiclesPhotosFromAPI(vehicle: VehicleResource): Promise<VehiclePhot
     return Axios.get(`/cars/${vehicle.id}/photos`).then(res => res.data);
 }
 
-function postVehiclesPhotoFromAPI(vehicleId: number,imageData: string,imageTitle: string  ): Promise<VehiclePhoto>{    
-    let url = `cars/${vehicleId}/photos`;
-    var img = new Image();
-    img.src = imageData;
-    console.log(url);
-    Axios.post(url, {
-        photo: imageData,
-        title: imageTitle
-    }).then(res => {
-        console.log(res);
-    });
-}
+
 
 function getVehiclesPhotoFromAPI(vehicle: VehicleResource,vehiclePhotoId: number): Promise<VehiclePhoto>{
     return Axios.get(`/cars/${vehicle.id}/photos/${vehiclePhotoId}`).then(res => res.data as VehiclePhoto);
 }
 
 function patchVehiclesPhotoFromAPI(vehicle: VehicleResource,vehiclePhoto: VehiclePhoto): Promise<VehiclePhoto>{
-    return Axios.patch(`/cars/${vehicle.id}/photos/${vehiclePhoto.id}`, {
-        title: vehiclePhoto.title
-    }).then(res => res.data as VehiclePhoto);
+    return Axios.patch(`/cars/${vehicle.id}/photos/${vehiclePhoto.id}?title=${vehiclePhoto.title}`).then(res => res.data as VehiclePhoto);
 }
 
 function deleteVehiclesPhotoFromAPI(vehicle: VehicleResource,vehiclePhoto: VehiclePhoto): Promise<VehiclePhoto>{

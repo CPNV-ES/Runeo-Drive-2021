@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from "react";
-import {View, Image,ScrollView,Dimensions,Text,StyleSheet} from 'react-native'
+import {View, Image,ScrollView,Dimensions,Text,StyleSheet, TouchableOpacity} from 'react-native'
 import {VehicleResource,VehiclePhoto} from "../../common/resources/Vehicle.resource";
 import {VehiclesContainer} from "../../Provider.component"
 import {ButtonComponent} from "../../common/component/ButtonComponent";
@@ -32,6 +32,9 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
     const takePhoto = () => {
             navigation.navigate("takePhoto", {vehicleId: currentVehicle.id})
     }
+    const modifyImage = (index: number) => {
+        navigation.navigate("updatePhoto", {vehicleId: currentVehicle.id,vehiclePhoto: photos[index]});
+    }
     return (
         <View>
             <View style={styles.buttonContainer}>
@@ -52,11 +55,14 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
                             >
                                 {photos.map((photo:VehiclePhoto,index:number) => (
                                     <View key={"view"+photo.id}>
-                                        <Text key={"text"+photo.id} style={styles.photoTitle}>{photo.title}</Text>
-                                        <Image
-                                        key={"image"+photo.id}
-                                        source={{uri: photo.url}}
-                                        style={styles.photo}/>
+                                        <TouchableOpacity onPress={()=>modifyImage(index)}>
+                                            <Text key={"text"+photo.id} style={styles.photoTitle}>{photo.title} </Text>
+                                            <Image
+                                            key={"image"+photo.id}
+                                            source={{uri: photo.url}}
+                                            
+                                            style={styles.photo}/>
+                                        </TouchableOpacity>
                                     </View>
                                 ))}
                             </ScrollView>
