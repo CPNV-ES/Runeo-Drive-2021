@@ -2,6 +2,7 @@ import {ListVehiclesComponent} from "./list/ListVehicles.component";
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {DetailVehiclesComponent} from "./detail/DetailVehicles.component";
+import {VehiclePhotoTakerComponent} from "./detail/VechiclePhotoTaker.component";
 import {VehiclesContainer} from "../Provider.component";
 import {getStatusName} from "../common/utils/Vehicle.utils"
 
@@ -29,6 +30,18 @@ export function VehiclesComponent() {
                         title: `${vehicle?.name.toUpperCase()} - ${getStatusName(vehicle?.status || "")}`,
                     }
                 }}
+            />
+            <Stack.Screen
+                name={"takePhoto"}
+                component={VehiclePhotoTakerComponent}        
+                options={(route) => {
+                    const {vehicleId} = route.route.params as VehicleDetailParams;
+
+                    const vehicle = VehicleContainer.items.find(vehicle => vehicle.id == vehicleId)
+                    return {
+                        title: `${vehicle?.name.toUpperCase()} - ${getStatusName(vehicle?.status || "")}`,
+                    }
+                }}       
             />
         </Stack.Navigator>
     )

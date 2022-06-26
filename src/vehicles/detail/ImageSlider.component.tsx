@@ -2,6 +2,8 @@ import React,{ useEffect, useState } from "react";
 import {View, Image,ScrollView,Dimensions,Text,StyleSheet} from 'react-native'
 import {VehicleResource,VehiclePhoto} from "../../common/resources/Vehicle.resource";
 import {VehiclesContainer} from "../../Provider.component"
+import {ButtonComponent} from "../../common/component/ButtonComponent";
+import {useNavigation} from "@react-navigation/native";
 import Axios from "axios";
 
 const {width} = Dimensions.get("window");
@@ -12,6 +14,7 @@ export interface commentDetailVehiclesComponentProps {
 //taken from the following video: https://www.youtube.com/watch?v=otr_x0wKgvU
 export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComponentProps) {
     const vehiclesContainer = VehiclesContainer.useContainer();
+    const navigation = useNavigation();
     var state = {
         active: 0
     }
@@ -23,36 +26,47 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
             .then((response) => {
                 setPhotos(response)
                 setLoading(false)
-                console.log(photos)
             })
         }
     },[]);
+    const takePhoto = () => {
+            navigation.navigate("takePhoto", {vehicleId: currentVehicle.id})
+    }
     return (
         <View>
+            <View style={styles.buttonContainer}>
+                <View style={styles.buttonWrapper}>
+                    <ButtonComponent titleStyle={styles.buttonTitle} title="Nouvelle Image" onPress={takePhoto}/>
+                </View>
+            </View>
             {isLoading ? <Text>Loading...</Text> :
-                <View style={styles.container}>
-                    <ScrollView 
-                        pagingEnabled 
-                        showsHorizontalScrollIndicator={false} 
-                        horizontal 
-                        style ={styles.scrollView}
-                        onScroll={(e)=> state.active = Math.ceil(e.nativeEvent.contentOffset.x/e.nativeEvent.layoutMeasurement.width)}
-                    >
-                        {photos.map((photo:VehiclePhoto,index:number) => (
-                            <View>
-                                <Text style={styles.photoTitle}>{photo.title}</Text>
-                                <Image
-                                key={index}
-                                source={{uri: photo.url}}
-                                style={styles.photo}/>
+                <View>
+                    {photos.length === 0? <Text style={styles.photoTitle}>Vous avez aucune image</Text> :
+                        <View style={styles.container}>
+                            <ScrollView 
+                                pagingEnabled 
+                                showsHorizontalScrollIndicator={false} 
+                                horizontal 
+                                style ={styles.scrollView}
+                                onScroll={(e)=> state.active = Math.ceil(e.nativeEvent.contentOffset.x/e.nativeEvent.layoutMeasurement.width)}
+                            >
+                                {photos.map((photo:VehiclePhoto,index:number) => (
+                                    <View key={"view"+photo.id}>
+                                        <Text key={"text"+photo.id} style={styles.photoTitle}>{photo.title}</Text>
+                                        <Image
+                                        key={"image"+photo.id}
+                                        source={{uri: photo.url}}
+                                        style={styles.photo}/>
+                                    </View>
+                                ))}
+                            </ScrollView>
+                            <View style={styles.pagination}>
+                            {photos.map((photo) => (
+                                    <Text key={"dot"+photo.id} style={styles.pagingActiveText}>⬤</Text>
+                            ))}
                             </View>
-                        ))}
-                    </ScrollView>
-                    <View style={styles.pagination}>
-                    {photos.map((photo:any,index:number) => (
-                            <Text key={index} style={index==state.active ? styles.pagingActiveText:styles.pagingText}>⬤</Text>
-                    ))}
-                    </View>
+                        </View>
+                    }
                 </View>
             }
         </View>
