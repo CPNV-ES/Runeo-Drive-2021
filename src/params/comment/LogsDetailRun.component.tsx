@@ -53,23 +53,37 @@ export function LogsDetailRunComponent(props: { runId: number }) {
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>
         </View>
-    );
+    )
 
+    /**
+     * Get logs of current run
+     */
+    useEffect(() => {
+        runsContainer.getLogs(runId).then((logs) => {
+            setLogs(logs);
+            setIsLoading(false);
+        })
+    });
     return (
-        <View style={styles.container}>
-            <SwipeListView
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-75}
-                leftOpenValue={0}
-                previewRowKey={'0'}
-                previewOpenValue={-40}
-                previewOpenDelay={3000}
-            />
+        <View>
+            {isLoading ? <Text>Loading...</Text> :
+                <View style={styles.container}>
+                    <SwipeListView
+                        data={logs}
+                        renderItem={renderRow}
+                        renderHiddenItem={renderHiddenItem}
+                        rightOpenValue={-75}
+                        leftOpenValue={0}
+                        previewRowKey={'0'}
+                        previewOpenValue={-40}
+                        previewOpenDelay={3000}
+                    />
+                </View>
+            }
         </View>
     );
 }
+
 
 /**
  * Stylesheet for the component
