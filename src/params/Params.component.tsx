@@ -4,7 +4,6 @@ import {AuthContainer} from "../Provider.component"
 import {ButtonComponent} from "../common/component/ButtonComponent";
 import { InfoComponent } from "../common/component/InfoComponent";
 import {DetailRunsCommentComponent} from "../runs/detail/DetailRunsComment.component";
-import {DisplayNameComponent} from "./DisplayName.component";
 import {UpdateDisplayNameComponent} from "./UpdateDisplayName.component";
 
 export function ParamsComponent() {
