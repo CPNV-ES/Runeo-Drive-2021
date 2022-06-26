@@ -3,6 +3,12 @@
 Runeo Drive is an app for the driver of the [Paléo festival](http://yeah.paleo.ch/) to let them interact with Runeo Desk
 to coordinate their run from a phone.
 
+## MOB1 Mauro
+### Installation
+- Same as the normal installation but this version uses a specific branch of runeo ([MOB1_Mauro](https://github.com/CPNV-ES/Runeo-Desk/tree/feature/MOB1_Mauro)) containing the necessary api routes.
+- To start a laravel server on your local network you need to type the following command: "php artisan serve --host=[ip_address]"
+- When in the app, the user will be prompted to enter the api url("https://runeo.mycpnv.ch/api" by default), if you wish to change this value, make sure not to forget the connection protocol ("http" or "https"), the portnumber if you're connecting to a local server and the suffix "/api", you should have something that resembles the following: "http://192.168.32.27:8000/api"
+
 ## Installation
 
 - Clone the repository `git clone https://github.com/CPNV-ES/Runeo-Drive-2022.git`
