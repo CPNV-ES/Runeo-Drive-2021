@@ -4,9 +4,8 @@
     <list default="true" id="306c55b2-2605-475a-9f43-fb581c40a6c8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/container/Runs.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/container/Runs.container.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runs/comment/LogsDetailRun.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/comment/LogsDetailRun.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runs/list/ListRuns.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/list/ListRuns.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/runs/list/ListRunsItem.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/list/ListRunsItem.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/params/comment/CreateLogDetailRun.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/comment/CreateLogDetailRun.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/params/comment/LogsDetailRun.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/comment/LogsDetailRun.component.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +46,9 @@
       <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\common\resources" />
       <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\common\container" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\params" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -60,6 +62,8 @@
       <workItem from="1655898202219" duration="5261000" />
       <workItem from="1655906820476" duration="359000" />
       <workItem from="1655907251201" duration="17923000" />
+      <workItem from="1656232662737" duration="11706000" />
+      <workItem from="1656249559763" duration="371000" />
     </task>
     <servers />
   </component>
