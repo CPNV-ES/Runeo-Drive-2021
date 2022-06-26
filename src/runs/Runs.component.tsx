@@ -6,7 +6,7 @@ import {DetailRunsComponent} from "./detail/DetailRuns.component";
 import {RunsContainer} from "../Provider.component";
 import {RunsSelectVehicleComponent} from "./RunsSelectVehicle.component";
 import {RunsEndComponent} from "./RunsEnd.component";
-import {CommentRunsComponent} from "./comment/CommentRuns.component";
+import {CommentRunsComponent} from "../params/comment/CommentRuns.component";
 
 const Stack = createStackNavigator();
 
