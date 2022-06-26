@@ -4,6 +4,8 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import {StyleSheet, Text, TouchableHighlight, TouchableOpacity, View,} from "react-native";
 import {LogResource} from "../../common/resources/Log.resource";
 import {RunResource} from "../../common/resources/Run.resource";
+import Axios from "axios";
+import {useNavigation} from "@react-navigation/native";
 
 
 export function LogsDetailRunComponent(props: { runId: number }) {
@@ -17,6 +19,7 @@ export function LogsDetailRunComponent(props: { runId: number }) {
     const {runId} = props;
     const [logs, setLogs] = useState<LogResource[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const navigation = useNavigation();
 
     /**
      * Render a row of logs in the list view
@@ -37,6 +40,13 @@ export function LogsDetailRunComponent(props: { runId: number }) {
         </TouchableHighlight>
     )
 
+    const deleteRow = (logId: number) => {
+        return Axios.delete(`/runs/${runId}/logs/${logId}`).then(() => {
+            console.log("Deleted row:", logId);
+            navigation.navigate("list");
+        })
+    }
+
     /**
      * Render Hidden row in SwipeListView
      * @param {any} data
@@ -45,7 +55,7 @@ export function LogsDetailRunComponent(props: { runId: number }) {
         <View style={styles.rowBack}>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
-                onPress={() => console.log("Right button")}
+                onPress={() =>  deleteRow(data.item.id)}
             >
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>
