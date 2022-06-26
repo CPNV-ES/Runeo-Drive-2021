@@ -13,8 +13,8 @@ export interface RunsContainer extends DataContainerInterface<RunResource> {
     stopRun: (run: RunResource, gasLevel: number) => Promise<void>,
     takeRun: (run: RunResource, runner: RunnerResource) => Promise<void>,
     acknowledgeRun: (run: RunResource) => Promise<void>,
-    getLogs: (runId: { runId: number }) => Promise<LogResource[]>,
-    postLog: (run: RunResource, message: string) => Promise<void>
+    getLogs: (runId: number) => Promise<LogResource[]>,
+    postLog: (run: number, message: string) => Promise<LogResource>
 }
 
 export function useRunsContainer(): RunsContainer {
@@ -44,11 +44,9 @@ export function useRunsContainer(): RunsContainer {
     const acknowledgeRun = (run: RunResource): Promise<void> =>
         acknowledgeRunApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
-    const getLogs = (runId: { runId: number }): Promise<LogResource[]> =>
-        getLogsFromApi(runId).then(cacheHelper.insertItem).catch(error => error.text);
+    const getLogs = (runId: number) => getLogsFromApi(runId)
 
-    const postLog = (run: RunResource, message: string): Promise<void> =>
-        postLogToApi(run, message).then(cacheHelper.insertItem).catch(error => error.text);
+    const postLog = (run: number, message: string) => postLogToApi(run, message)
 
     return {
         items: cacheHelper.items,
@@ -99,14 +97,14 @@ function getRunsFromApi(onlyFromTime?: DateTime): Promise<RunResource[]> {
     return Axios.get("/runs", {params}).then(res => console.log("Run",res.data.map(parseRunResource))).catch(error => error.text);
 }
 
-function getLogsFromApi(run: RunResource): Promise<LogResource[]> {
-    return Axios.get(`/runs/${run}/logs`).then(res => console.log(res.data.map(parseLogResource))).catch(error => error.text);
+function getLogsFromApi(run: number): Promise<LogResource[]> {
+    return Axios.get(`/runs/${run}/logs`).then(res => res.data)
 }
 
-function postLogToApi(run: RunResource, description: string): Promise<RunResource> {
+function postLogToApi(run: number, description: string): Promise<LogResource> {
     return Axios.post(`/runs/${run}/logs`, {
         description
-    }).then(res => parseRunResource(res.data)).catch(error => error.text);
+    }).then(res => res.data)
 }
 
 function acknowledgeRunApi(run: RunResource): Promise<RunResource> {
