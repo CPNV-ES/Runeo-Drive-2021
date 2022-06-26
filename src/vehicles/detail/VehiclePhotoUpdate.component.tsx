@@ -41,7 +41,6 @@ useEffect(() => {
         Authorization: "Bearer " + token,
       },   
     };
-    console.log(token)
     return Axios.delete(`/cars/${vehicleId}/photos/${vehiclePhoto.id}`,config).then(() => {
       navigation.navigate("list")
     });
@@ -56,7 +55,6 @@ useEffect(() => {
         Authorization: "Bearer " + token,
       },    
     };
-    console.log(token)
     Axios.patch(`/cars/${vehicleId}/photos/${vehiclePhoto.id}?title=${values.newTitle}`,null,config).then(() => {
       navigation.navigate("list")
     });
