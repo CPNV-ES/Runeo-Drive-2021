@@ -29,7 +29,6 @@ export function ParamsComponent() {
     return (
         <SafeAreaView style={styles.wrapper}>
             <DetailRunsCommentComponent/>
-            <DisplayNameComponent/>
             <UpdateDisplayNameComponent/>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
