@@ -19,22 +19,34 @@ export function CreateLogDetailRunsComponent(props: { runId: number}) {
         description: ""
     }
 
+    /**
+     * Ask for permission to access location
+     */
+    useEffect(() => {
+        (async () => {
+            const {status} = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                console.log('Permission to access location was denied');
+            }
+        })();
+    })
+
+    let location = Location.getCurrentPositionAsync({})
+
     const onSubmit = async (values: { description: string }, {setSubmitting, setFieldError}: FormikHelpers<any>) => {
-        const data = {
-            description: values.description,
-            loggable_id : runId,
-            loggable_type: "App\\Models\\Run",
-            action: "created",
-            user_id: authContainer.authenticatedUser?.id
-        }
-
-        Axios.post(`/runs/${runId}/logs`, data)
-            .then(() => {
-                console.log("Log created");
+        location.then(async (data) => {
+            const {latitude, longitude} = data.coords;
+            const response = await Axios.post(`/runs/${runId}/logs`, {
+                description: values.description + " - " + latitude + " - " + longitude
+            });
+            if (response.status === 201) {
                 navigation.navigate("list");
-            })
+            } else {
+                setFieldError("description", "Error creating log");
+            }
+            setSubmitting(false);
+        })
     }
-
     return (
         <Formik
             onSubmit={onSubmit}
