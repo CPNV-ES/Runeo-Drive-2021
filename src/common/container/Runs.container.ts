@@ -13,7 +13,7 @@ export interface RunsContainer extends DataContainerInterface<RunResource> {
     stopRun: (run: RunResource, gasLevel: number) => Promise<void>,
     takeRun: (run: RunResource, runner: RunnerResource) => Promise<void>,
     acknowledgeRun: (run: RunResource) => Promise<void>,
-    getLogs: (run: RunResource) => Promise<void>,
+    getLogs: (runId: { runId: number }) => Promise<LogResource[]>,
     postLog: (run: RunResource, message: string) => Promise<void>
 }
 
@@ -44,8 +44,8 @@ export function useRunsContainer(): RunsContainer {
     const acknowledgeRun = (run: RunResource): Promise<void> =>
         acknowledgeRunApi(run).then(cacheHelper.insertItem).catch(error => error.text);
 
-    const getLogs = (run: RunResource): Promise<void> =>
-        getLogsFromApi(run).then(cacheHelper.insertItem).catch(error => error.text);
+    const getLogs = (runId: { runId: number }): Promise<LogResource[]> =>
+        getLogsFromApi(runId).then(cacheHelper.insertItem).catch(error => error.text);
 
     const postLog = (run: RunResource, message: string): Promise<void> =>
         postLogToApi(run, message).then(cacheHelper.insertItem).catch(error => error.text);
