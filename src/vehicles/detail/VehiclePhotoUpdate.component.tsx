@@ -23,14 +23,21 @@ export function VehiclePhotoUpdateComponent() {
   let initialValues = {
     newTitle: vehiclePhoto.title
 }
+  const deleteVehiclePhoto = async () => {
+    return Axios.delete(`/cars/${vehicleId}/photos/${vehiclePhoto.id}`).then(() => {
+      navigation.navigate("list")
+    });
+  }
   const updateVehiclePhoto = async (values:{newTitle:string}) => {
-    
     Axios.patch(`/cars/${vehicleId}/photos/${vehiclePhoto.id}?title=${values.newTitle}`).then(() => {
       navigation.navigate("list")
     });
   }
   return (
     <View>
+      <ButtonComponent 
+                title="supprimer l'image"
+                onPress={deleteVehiclePhoto}/>
       <Formik
         initialValues={initialValues}
         onSubmit={updateVehiclePhoto}>
@@ -44,8 +51,7 @@ export function VehiclePhotoUpdateComponent() {
                 }}/>
               <ButtonComponent 
                 title="sauvegarder"
-                onPress={formik.handleSubmit}
-                disabled={formik.isSubmitting || !formik.isValid}/>
+                onPress={formik.handleSubmit}/>
             </View>
           )}
         </Formik>
