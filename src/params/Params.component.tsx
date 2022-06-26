@@ -3,6 +3,7 @@ import React from "react";
 import {AuthContainer} from "../Provider.component"
 import {ButtonComponent} from "../common/component/ButtonComponent";
 import { InfoComponent } from "../common/component/InfoComponent";
+import {DetailRunsCommentComponent} from "../runs/detail/DetailRunsComment.component";
 
 export function ParamsComponent() {
     const authContainer = AuthContainer.useContainer();
@@ -26,6 +27,7 @@ export function ParamsComponent() {
     return (
         <SafeAreaView style={styles.wrapper}>
             <InfoComponent style={styles.container}/>
+            <DetailRunsCommentComponent/>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <ButtonComponent titleStyle={styles.buttonTitle} title="Déconnexion" onPress={onLogoutPress}/>
