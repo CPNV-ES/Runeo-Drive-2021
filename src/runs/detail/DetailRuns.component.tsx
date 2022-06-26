@@ -37,7 +37,7 @@ export function DetailRunsComponent() {
 
             <DetailRunsRunnersComponent currentRun={currentRun}/>
 
-            <DetailRunsCommentComponent currentRun={currentRun}/>
+
         </ScrollView>
     )
 }
