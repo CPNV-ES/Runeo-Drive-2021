@@ -1,50 +1,47 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RunsContainer} from "../../Provider.component";
 import {SwipeListView} from "react-native-swipe-list-view";
 import {StyleSheet, Text, TouchableHighlight, TouchableOpacity, View,} from "react-native";
+import {LogResource} from "../../common/resources/Log.resource";
+import {RunResource} from "../../common/resources/Run.resource";
 
 
 export function LogsDetailRunComponent(props: { runId: number }) {
-    const {getLogs} = RunsContainer.useContainer();
-    const logs = getLogs(props);
-    console.log("Good View", logs);
-    const [listData, setListData] = useState(
-        Array(20)
-            .fill('')
-            .map((_, i) => ({key: `${i}`, text: `item #${i}`}))
-    );
 
     /**
-     * On swipe row, delete the row
-     * @param rowMap
-     * @param rowKey
+     * @type {RunResource}
+     * @memberof LogsDetailRunComponent
+     * @description current run
      */
-    const onSwipeDeleteElement = (rowMap: string, rowKey: string) => {
-        //TODO: delete the row
-    }
+    const runsContainer = RunsContainer.useContainer();
+    const {runId} = props;
+    const [logs, setLogs] = useState<LogResource[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     /**
-     * Render Item listed in the data source
-     * @param listData
+     * Render a row of logs in the list view
+     * @param {LogResource} log
      */
-    const renderItem = listData => (
+    const renderRow = (log: LogResource) => (
         <TouchableHighlight
-            onPress={() => console.log(`I have been clicked ${listData.item.text}`)}
+            onPress={() => {
+                console.log("Pressed row:", log.item.id);
+                }
+            }
             style={styles.rowFront}
             underlayColor={'#AAA'}
         >
             <View>
-                <Text>{listData.item.text}</Text>
+                <Text>{log.item.description}</Text>
             </View>
         </TouchableHighlight>
-    );
+    )
 
     /**
-     * Render the hidden buttons in each row.
-     * @param listData
-     * @param rowMap
+     * Render Hidden row in SwipeListView
+     * @param {any} data
      */
-    const renderHiddenItem = ({listData}, rowMap) => (
+    const renderHiddenItem = (data: any) => (
         <View style={styles.rowBack}>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
