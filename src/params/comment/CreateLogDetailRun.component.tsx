@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {SafeAreaView, View, Text} from "react-native";
 import {Formik, FormikHelpers} from "formik";
 import {Input} from "react-native-elements";
@@ -8,6 +8,7 @@ import {AuthContainer, NetworkContainer, RunsContainer, VehiclesContainer} from 
 import {TextInputComponent} from "../../common/component/TextInput.component";
 import Axios from "axios";
 import {useNavigation} from "@react-navigation/native";
+import * as Location from 'expo-location';
 
 export function CreateLogDetailRunsComponent(props: { runId: number}) {
     const {runId} = props;
