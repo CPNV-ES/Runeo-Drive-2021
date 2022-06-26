@@ -93,7 +93,7 @@ export function VehiclePhotoTakerComponent() {
     };
     Axios.post(`cars/${vehicleId}/photos`, data, config)
     .then(() => {
-      navigation.goBack();
+      navigation.navigate("list")
     })
   }
   return (
