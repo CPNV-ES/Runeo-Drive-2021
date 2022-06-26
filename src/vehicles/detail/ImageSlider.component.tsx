@@ -4,7 +4,6 @@ import {VehicleResource,VehiclePhoto} from "../../common/resources/Vehicle.resou
 import {VehiclesContainer} from "../../Provider.component"
 import Axios from "axios";
 
-
 const {width} = Dimensions.get("window");
 const height = width * 0.6
 export interface commentDetailVehiclesComponentProps {
@@ -27,7 +26,7 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
                 console.log(photos)
             })
         }
-    },)
+    },[]);
     return (
         <View>
             {isLoading ? <Text>Loading...</Text> :
@@ -40,10 +39,13 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
                         onScroll={(e)=> state.active = Math.ceil(e.nativeEvent.contentOffset.x/e.nativeEvent.layoutMeasurement.width)}
                     >
                         {photos.map((photo:VehiclePhoto,index:number) => (
-                            <Image
-                            key={index}
-                            source={{uri: photo.url}}
-                            style={styles.photo}/>
+                            <View>
+                                <Text style={styles.photoTitle}>{photo.title}</Text>
+                                <Image
+                                key={index}
+                                source={{uri: photo.url}}
+                                style={styles.photo}/>
+                            </View>
                         ))}
                     </ScrollView>
                     <View style={styles.pagination}>
@@ -60,9 +62,40 @@ export function ImageSliderComponent({currentVehicle}: commentDetailVehiclesComp
 const styles = StyleSheet.create({
     container:{ width,height },
     scrollView:{ width,height },
-    photo:{width,height,resizeMode:'cover'},
-    pagination:{ flexDirection:'row',position:'absolute',bottom:0,alignSelf:'center' },
-    pagingText:{color:"#888", margin: 3},
-    pagingActiveText:{color:"#fff", margin: 3}
+    photo:{
+        width,
+        height,
+        resizeMode:'cover'
+    },
+    photoTitle:{
+        zIndex:1,
+        textAlign:'center',
+        fontSize:20,
+    },
+    pagination:{ 
+        flexDirection:'row',
+        position:'absolute',
+        bottom:0,
+        alignSelf:'center' 
+    },
+    pagingText:{
+        color:"#888", 
+        margin: 3
+    },
+    pagingActiveText:{
+        color:"#fff", 
+        margin: 3
+    },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "row",
+    },
+    buttonWrapper: {
+        flex: 1,
+        padding: 5
+    },
+    buttonTitle: {
+        marginVertical: 5,
+    }
 })
 
