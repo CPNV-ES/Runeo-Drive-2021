@@ -8,6 +8,7 @@ import {ButtonComponent} from "../../common/component/ButtonComponent";
 import {Formik, FormikHelpers} from "formik";
 import {useRoute} from "@react-navigation/native";
 import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let formData = new FormData();
 export interface VehiclePhotoTaker {
@@ -22,9 +23,9 @@ export function VehiclePhotoTakerComponent() {
   const cameraRef = useRef();
   const [hasPermission, setHasPermission] = useState(false);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
-
   const [capturedImage,setCapturedImage] = useState()
   const [isPreview, setIsPreview] = useState(false);
+  const [token,setToken] = useState("")
   const [isCameraReady, setIsCameraReady] = useState(false);
   let initialValues = {
     title: ""
@@ -32,8 +33,13 @@ export function VehiclePhotoTakerComponent() {
 
   useEffect(() => {
     onHandlePermission();
+    if(token==""){getToken()};
   }, []);
 
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem("apiToken");
+    if(token!=null) setToken(token);
+  }
   const onHandlePermission = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     setHasPermission(status == 'granted');
@@ -81,6 +87,7 @@ export function VehiclePhotoTakerComponent() {
       type: "image/jpeg",
       name: "photo.jpg"
     }
+    
     data.append('photo', picture);
     data.append('title', values.title);
     let config = {
@@ -88,7 +95,8 @@ export function VehiclePhotoTakerComponent() {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + token
       },   
     };
     Axios.post(`cars/${vehicleId}/photos`, data, config)
