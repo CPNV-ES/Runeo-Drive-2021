@@ -1,23 +1,26 @@
 import {RunResource} from "../../common/resources/Run.resource";
 import {Alert, StyleSheet, Text, View} from "react-native";
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import {CardComponentWithIcon} from "../../common/component/Card.component";
 import {ButtonComponent} from "../../common/component/ButtonComponent";
 import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export interface InfoDetailRunsComponentProps {
     currentRun: RunResource
 }
 
-    export function DetailRunsCommentComponent() {
+export function DetailRunsCommentComponent() {
     const navigation = useNavigation();
 
-    const onChangePress = () => {
-        navigation.navigate("comment", {runId: 1});
+    const onChangePress = async () => {
+        const runIdFromStorage = await AsyncStorage.getItem("@runId");
+        console.log(runIdFromStorage);
+        navigation.navigate("comment", {runId: runIdFromStorage});
     }
     return (
-        <CardComponentWithIcon title={"Plus d'informations"} icon={"info-circle"}>
+        <CardComponentWithIcon title={`Plus d'informations pour le run choisis`} icon={"info-circle"}>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <ButtonComponent titleStyle={styles.buttonTitle} title="Commentaires" onPress={onChangePress}/>

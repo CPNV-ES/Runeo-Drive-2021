@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="306c55b2-2605-475a-9f43-fb581c40a6c8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/params/Params.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/Params.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/params/UpdateDisplayName.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/UpdateDisplayName.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/params/updateRun/UpdateRunId.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/updateRun/UpdateRunId.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/runs/detail/DetailRunsComment.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/detail/DetailRunsComment.component.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
