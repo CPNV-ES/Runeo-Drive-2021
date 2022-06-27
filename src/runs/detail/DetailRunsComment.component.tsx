@@ -16,7 +16,6 @@ export function DetailRunsCommentComponent() {
 
     const onChangePress = async () => {
         const runIdFromStorage = await AsyncStorage.getItem("@runId");
-        console.log(runIdFromStorage);
         navigation.navigate("comment", {runId: runIdFromStorage});
     }
     return (
