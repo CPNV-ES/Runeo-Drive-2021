@@ -5,6 +5,7 @@ import {ButtonComponent} from "../common/component/ButtonComponent";
 import { InfoComponent } from "../common/component/InfoComponent";
 import {DetailRunsCommentComponent} from "../runs/detail/DetailRunsComment.component";
 import {UpdateDisplayNameComponent} from "./UpdateDisplayName.component";
+import {UpdateRunIdComponent} from "./updateRun/UpdateRunId.component";
 
 export function ParamsComponent() {
     const authContainer = AuthContainer.useContainer();
@@ -29,6 +30,7 @@ export function ParamsComponent() {
         <SafeAreaView style={styles.wrapper}>
             <DetailRunsCommentComponent/>
             <UpdateDisplayNameComponent/>
+            <UpdateRunIdComponent/>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <ButtonComponent titleStyle={styles.buttonTitle} title="Déconnexion" onPress={onLogoutPress}/>
