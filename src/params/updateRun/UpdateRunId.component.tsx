@@ -44,10 +44,10 @@ export function UpdateDisplayNameComponent() {
                         {(formik) => (
                             <View>
                                 <TextInputComponent
-                                    name={"name"}
+                                    name={"runId"}
                                     formik={formik}
                                     inputProps={{
-                                        placeholder: "Votre nom d'affichage"
+                                        placeholder: "Nouveau id de run"
                                     }}/>
 
                                 <ButtonComponent
