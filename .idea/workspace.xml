@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/params/Params.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/Params.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/params/UpdateDisplayName.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/UpdateDisplayName.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/params/updateRun/UpdateRunId.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/params/updateRun/UpdateRunId.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/runs/detail/DetailRunsComment.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/runs/detail/DetailRunsComment.component.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,19 +31,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mathi/OneDrive/Documents/Projects/GitHub/Runeo-Drive-2022/src/common/resources&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Mathi\\OneDrive\\Documents\\Projects\\GitHub\\Runeo-Drive-2022\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Mathi/OneDrive/Documents/Projects/GitHub/Runeo-Drive-2022/src/params/updateRun",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\Mathi\\OneDrive\\Documents\\Projects\\GitHub\\Runeo-Drive-2022\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\params\updateRun" />
       <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\common\resources" />
       <recent name="C:\Users\Mathi\OneDrive\Documents\Projects\GitHub\Runeo-Drive-2022\src\common\container" />
     </key>
