@@ -1,4 +1,3 @@
-import {useNavigation} from "@react-navigation/native";
 import {Formik, FormikHelpers} from "formik";
 import React, {useEffect} from "react";
 import {View, StyleSheet} from "react-native";
@@ -10,7 +9,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function UpdateRunIdComponent() {
 
-    const navigation = useNavigation();
     const [runId, setRunId] = React.useState("0");
 
     const onSubmit = async (values: { runId: string }, {setSubmitting, setFieldError}: FormikHelpers<any>) => {
