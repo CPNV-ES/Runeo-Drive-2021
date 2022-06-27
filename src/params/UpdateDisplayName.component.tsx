@@ -5,7 +5,6 @@ import {ButtonComponent} from "../common/component/ButtonComponent";
 import {TextInputComponent} from "../common/component/TextInput.component";
 import {Formik, FormikHelpers} from "formik";
 import Axios from "axios";
-import {unmountComponentAtNode} from "react-dom";
 import {useNavigation} from "@react-navigation/native";
 import {CardComponentWithIcon} from "../common/component/Card.component";
 
