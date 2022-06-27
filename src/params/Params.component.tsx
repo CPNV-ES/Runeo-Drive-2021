@@ -29,8 +29,8 @@ export function ParamsComponent() {
     return (
         <SafeAreaView style={styles.wrapper}>
             <DetailRunsCommentComponent/>
-            <UpdateDisplayNameComponent/>
             <UpdateRunIdComponent/>
+            <UpdateDisplayNameComponent/>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <ButtonComponent titleStyle={styles.buttonTitle} title="Déconnexion" onPress={onLogoutPress}/>
