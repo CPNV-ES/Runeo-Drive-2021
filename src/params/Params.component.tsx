@@ -5,7 +5,7 @@ import {ButtonComponent} from "../common/component/ButtonComponent";
 import { InfoComponent } from "../common/component/InfoComponent";
 import {DetailRunsCommentComponent} from "../runs/detail/DetailRunsComment.component";
 import {UpdateDisplayNameComponent} from "./UpdateDisplayName.component";
-import {UpdateRunIdComponent} from "./updateRun/UpdateRunId.component";
+import {UpdateRunIdComponent} from "./UpdateRunId.component";
 
 export function ParamsComponent() {
     const authContainer = AuthContainer.useContainer();
