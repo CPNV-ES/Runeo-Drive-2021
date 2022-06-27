@@ -2,9 +2,9 @@ import {useNavigation} from "@react-navigation/native";
 import {Formik, FormikHelpers} from "formik";
 import React, {useEffect} from "react";
 import {View, StyleSheet} from "react-native";
-import {CardComponentWithIcon} from "../../common/component/Card.component";
-import {ButtonComponent} from "../../common/component/ButtonComponent";
-import {TextInputComponent} from "../../common/component/TextInput.component";
+import {CardComponentWithIcon} from "../common/component/Card.component";
+import {ButtonComponent} from "../common/component/ButtonComponent";
+import {TextInputComponent} from "../common/component/TextInput.component";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
