@@ -17,7 +17,7 @@ export function UpdateRunIdComponent() {
         if(!isNaN(parseInt(values.runId))){
             await AsyncStorage.setItem("@runId", values.runId);
             setRunId(values.runId);
-            navigation.navigate("list");
+
         }
     }
 

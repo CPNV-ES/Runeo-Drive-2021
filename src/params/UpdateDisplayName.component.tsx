@@ -28,8 +28,6 @@ export function UpdateDisplayNameComponent() {
         Axios.patch(`/users/${userContainer?.id}`, {name: values.name})
             .then(() => {
                 authContainer.refreshAuthenticated();
-                navigation.navigate("list");
-
             })
     }
 
