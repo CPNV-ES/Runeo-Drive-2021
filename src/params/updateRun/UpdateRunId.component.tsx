@@ -1,41 +1,43 @@
-import React from "react";
-import {View, Text, StyleSheet} from "react-native";
-import {AuthContainer, UsersContainer} from "../Provider.component";
-import {ButtonComponent} from "../common/component/ButtonComponent";
-import {TextInputComponent} from "../common/component/TextInput.component";
-import {Formik, FormikHelpers} from "formik";
-import Axios from "axios";
-import {unmountComponentAtNode} from "react-dom";
 import {useNavigation} from "@react-navigation/native";
-import {CardComponentWithIcon} from "../common/component/Card.component";
+import {Formik, FormikHelpers} from "formik";
+import React, {useEffect} from "react";
+import {View, StyleSheet} from "react-native";
+import {CardComponentWithIcon} from "../../common/component/Card.component";
+import {ButtonComponent} from "../../common/component/ButtonComponent";
+import {TextInputComponent} from "../../common/component/TextInput.component";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-export function UpdateDisplayNameComponent() {
+export function UpdateRunIdComponent() {
 
-    /**
-     * Get current user from the container
-     * @type {UsersContainer}
-     */
-    const authContainer = AuthContainer.useContainer();
-    const userContainer = authContainer.authenticatedUser;
     const navigation = useNavigation();
+    const [runId, setRunId] = React.useState("0");
 
+    const onSubmit = async (values: { runId: string }, {setSubmitting, setFieldError}: FormikHelpers<any>) => {
+        if(!isNaN(parseInt(values.runId))){
+            await AsyncStorage.setItem("@runId", values.runId);
+            setRunId(values.runId);
+            navigation.navigate("list");
+        }
+    }
 
     const initialValues = {
-        name: userContainer?.name
+        runId: runId
     }
 
-    const onSubmit = async (values: { name: string }, {setSubmitting, setFieldError}: FormikHelpers<any>) => {
-        Axios.patch(`/users/${userContainer?.id}`, {name: values.name})
-            .then(() => {
-                authContainer.refreshAuthenticated();
-                navigation.navigate("list");
-
-            })
-    }
-
+    useEffect(() => {
+        (async () => {
+            const runId = await AsyncStorage.getItem("@runId");
+            if(runId) {
+                setRunId(runId);
+            }
+            else {
+                setRunId("1")
+            }
+        })();
+    })
     return (
-        <CardComponentWithIcon title={`Votre nom d'affichage actuel : ${userContainer?.name}`} icon={"info-circle"}>
+        <CardComponentWithIcon title={`Votre id de run choisi : ${runId}`} icon={"info-circle"}>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonWrapper}>
                     <Formik
